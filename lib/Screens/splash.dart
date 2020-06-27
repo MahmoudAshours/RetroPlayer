@@ -1,8 +1,8 @@
-import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:gradient_text/gradient_text.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -29,19 +29,7 @@ class _SplashScreenState extends State<SplashScreen>
       _outerRectangleFraction = 0.0;
 
   _initializeTTS() async {
-      var androidInfo = await DeviceInfoPlugin().androidInfo;
-  var release = androidInfo.version.release;
-  var sdkInt = androidInfo.version.sdkInt;
-  var manufacturer = androidInfo.manufacturer;
-  var model = androidInfo.model;
-  print('Android $release (SDK $sdkInt), $manufacturer $model');
     await _flutterTts.setLanguage("en-US");
-
-    await _flutterTts.setSpeechRate(1.0);
-
-    await _flutterTts.setVolume(1.0);
-
-    await _flutterTts.setPitch(1.0);
   }
 
   @override
@@ -101,9 +89,6 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       body: Stack(
         children: [
-          RaisedButton(onPressed: () async {
-            var result = await _flutterTts.speak("Hello World");
-          }),
           Positioned(
             child: Center(
               child: CustomPaint(
@@ -131,14 +116,23 @@ class _SplashScreenState extends State<SplashScreen>
               ),
             ),
           ),
-          // Positioned(
-          //   top: 100,
-          //   left: 100,
-          //   child: Text(
-          //     'X',
-          //     style: TextStyle(color: Colors.white, fontSize: 30),
-          //   ),
-          // ),
+          Text('Play'),
+          for (int i = 0; i < 5; i++)
+            Positioned(
+              top: i * 100.0,
+              left: i * 100.0,
+              child: GradientText(
+                'O ',
+                gradient: LinearGradient(
+                  colors: [Colors.deepPurple, Colors.deepOrange, Colors.pink],
+                ),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 60,
+                  fontFamily: 'elixia',
+                ),
+              ),
+            ),
         ],
       ),
     );
