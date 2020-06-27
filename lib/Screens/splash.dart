@@ -1,6 +1,8 @@
-import 'package:drawing_animation/drawing_animation.dart';
+import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+import 'package:flutter_tts/flutter_tts.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -9,9 +11,38 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-  AnimationController _circlecontroller;
-  Animation<double> _circleanimation;
-  double _circleFraction = 0.0;
+  FlutterTts _flutterTts = FlutterTts();
+
+  AnimationController _circlecontroller,
+      _arc1Controller,
+      _arc2Controller,
+      _outerRectangleController;
+
+  Animation<double> _circleanimation,
+      _arc1Animation,
+      _arc2Animation,
+      _outerRectangleAnimation;
+
+  double _circleFraction = 0.0,
+      _arc1Fraction = 0.0,
+      _arc2Fraction = 0.0,
+      _outerRectangleFraction = 0.0;
+
+  _initializeTTS() async {
+      var androidInfo = await DeviceInfoPlugin().androidInfo;
+  var release = androidInfo.version.release;
+  var sdkInt = androidInfo.version.sdkInt;
+  var manufacturer = androidInfo.manufacturer;
+  var model = androidInfo.model;
+  print('Android $release (SDK $sdkInt), $manufacturer $model');
+    await _flutterTts.setLanguage("en-US");
+
+    await _flutterTts.setSpeechRate(1.0);
+
+    await _flutterTts.setVolume(1.0);
+
+    await _flutterTts.setPitch(1.0);
+  }
 
   @override
   void initState() {
@@ -19,11 +50,49 @@ class _SplashScreenState extends State<SplashScreen>
         AnimationController(duration: Duration(seconds: 1), vsync: this);
 
     _circleanimation = Tween(begin: 0.0, end: 100.0).animate(_circlecontroller)
-      ..addListener(
-          () => setState(() => _circleFraction = _circleanimation.value));
+      ..addListener(() {
+        setState(() => _circleFraction = _circleanimation.value);
+        if (_circleanimation.isCompleted) {
+          _arc1Controller.forward();
+        }
+      });
+
+    _arc1Controller =
+        AnimationController(duration: Duration(seconds: 1), vsync: this);
+    _arc1Animation = Tween(begin: 0.0, end: 100.0).animate(_arc1Controller)
+      ..addListener(() {
+        setState(() => _arc1Fraction = _arc1Animation.value);
+        if (_arc1Animation.isCompleted) {
+          _arc2Controller.forward();
+        }
+      });
+
+    _arc2Controller = AnimationController(
+        duration: Duration(seconds: 1),
+        vsync: this,
+        reverseDuration: Duration(seconds: 2));
+
+    _arc2Animation = Tween(begin: 0.0, end: 100.0).animate(_arc2Controller)
+      ..addListener(() {
+        setState(() => _arc2Fraction = _arc2Animation.value);
+        if (_arc2Animation.isCompleted) {
+          _outerRectangleController.forward();
+        }
+      });
+
+    _outerRectangleController =
+        AnimationController(duration: Duration(milliseconds: 600), vsync: this);
+
+    _outerRectangleAnimation =
+        Tween(begin: 0.0, end: 100.0).animate(_outerRectangleController)
+          ..addListener(() {
+            setState(
+                () => _outerRectangleFraction = _outerRectangleAnimation.value);
+          });
 
     _circlecontroller.forward();
 
+    _initializeTTS();
     super.initState();
   }
 
@@ -32,31 +101,44 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       body: Stack(
         children: [
-          AnimatedDrawing.svg(
-            "assets/images/BlueTech.svg",
-            run: true,
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            duration: new Duration(seconds: 10),
-            animationCurve: Curves.decelerate,
-            scaleToViewport: true,
-            lineAnimation: LineAnimation.oneByOne,
-          ),
-          Center(
-            child: CustomPaint(
-              painter: OuterRectangleSplash(),
+          RaisedButton(onPressed: () async {
+            var result = await _flutterTts.speak("Hello World");
+          }),
+          Positioned(
+            child: Center(
               child: CustomPaint(
-                painter: RectangleSplash(),
-                child: CustomPaint(
-                  painter: CircluarSplash(animationValue: _circleFraction),
+                painter: OuterRectangleSplash(
+                    outerRectangleAnimation: _outerRectangleFraction),
+                child: RotationTransition(
+                  turns: _circleanimation,
                   child: CustomPaint(
-                    painter: ArcSplash1(),
-                    child: CustomPaint(painter: ArcSplash2()),
+                    painter: CircluarSplash(animationValue: _circleFraction),
+                    child: RotationTransition(
+                      turns: _arc1Animation,
+                      child: CustomPaint(
+                        painter: ArcSplash1(arcAnimationValue: _arc1Fraction),
+                        child: RotationTransition(
+                          turns: _arc2Animation,
+                          child: CustomPaint(
+                            painter:
+                                ArcSplash2(arcAnimationValue: _arc2Fraction),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
           ),
+          // Positioned(
+          //   top: 100,
+          //   left: 100,
+          //   child: Text(
+          //     'X',
+          //     style: TextStyle(color: Colors.white, fontSize: 30),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -95,7 +177,8 @@ class CircluarSplash extends CustomPainter {
 
 class ArcSplash1 extends CustomPainter {
   var _arcPaint;
-  ArcSplash1() {
+  final arcAnimationValue;
+  ArcSplash1({this.arcAnimationValue}) {
     _arcPaint = Paint()
       ..color = Color(0xfff887ff)
       ..strokeWidth = 1.2
@@ -110,7 +193,7 @@ class ArcSplash1 extends CustomPainter {
           radius: 50,
         ),
         -math.pi / 2,
-        math.pi * 2,
+        math.pi * 2 * arcAnimationValue / 100,
         false,
         _arcPaint);
   }
@@ -121,7 +204,8 @@ class ArcSplash1 extends CustomPainter {
 
 class ArcSplash2 extends CustomPainter {
   var _arcPaint;
-  ArcSplash2() {
+  final arcAnimationValue;
+  ArcSplash2({this.arcAnimationValue}) {
     _arcPaint = Paint()
       ..color = Color(0xffde004e)
       ..strokeWidth = 1.2
@@ -136,7 +220,7 @@ class ArcSplash2 extends CustomPainter {
           radius: 60,
         ),
         -math.pi / 2,
-        math.pi * 2,
+        math.pi * 2 * arcAnimationValue / 100,
         false,
         _arcPaint);
   }
@@ -154,6 +238,7 @@ class RectangleSplash extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
   }
+
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawRect(
@@ -167,7 +252,8 @@ class RectangleSplash extends CustomPainter {
 
 class OuterRectangleSplash extends CustomPainter {
   var _rectanglePaint;
-  OuterRectangleSplash() {
+  final outerRectangleAnimation;
+  OuterRectangleSplash({this.outerRectangleAnimation}) {
     _rectanglePaint = Paint()
       ..color = Color(0xff0891AB)
       ..strokeWidth = 1.2
@@ -177,7 +263,7 @@ class OuterRectangleSplash extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawRect(
-        Rect.fromCenter(center: Offset(0, 0), height: 190, width: 410),
+        Rect.fromPoints(Offset(outerRectangleAnimation * 2.0, 0), Offset(0, 0)),
         _rectanglePaint);
   }
 

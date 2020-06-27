@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   drawing_animation: ^0.1.3
+  flutter_tts: 
+  device_info: ^0.4.2+4
 
   cupertino_icons: ^0.1.3
 
