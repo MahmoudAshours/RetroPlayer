@@ -1,3 +1,4 @@
+import 'package:drawing_animation/drawing_animation.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -7,30 +8,56 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen>
-    with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _animation;
-  double _fraction = 0.0;
+    with TickerProviderStateMixin {
+  AnimationController _circlecontroller;
+  Animation<double> _circleanimation;
+  double _circleFraction = 0.0;
 
   @override
   void initState() {
-    _controller =
+    _circlecontroller =
         AnimationController(duration: Duration(seconds: 1), vsync: this);
 
-    _animation = Tween(begin: 0.0, end: 100.0).animate(_controller)
-      ..addListener(() => setState(() => _fraction = _animation.value));
+    _circleanimation = Tween(begin: 0.0, end: 100.0).animate(_circlecontroller)
+      ..addListener(
+          () => setState(() => _circleFraction = _circleanimation.value));
 
-    _controller.forward();
+    _circlecontroller.forward();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: CustomPaint(
-          painter: CircluarSplash(animationValue: _fraction),
-        ),
+      body: Stack(
+        children: [
+          AnimatedDrawing.svg(
+            "assets/images/BlueTech.svg",
+            run: true,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            duration: new Duration(seconds: 10),
+            animationCurve: Curves.decelerate,
+            scaleToViewport: true,
+            lineAnimation: LineAnimation.oneByOne,
+          ),
+          Center(
+            child: CustomPaint(
+              painter: OuterRectangleSplash(),
+              child: CustomPaint(
+                painter: RectangleSplash(),
+                child: CustomPaint(
+                  painter: CircluarSplash(animationValue: _circleFraction),
+                  child: CustomPaint(
+                    painter: ArcSplash1(),
+                    child: CustomPaint(painter: ArcSplash2()),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -44,7 +71,7 @@ class CircluarSplash extends CustomPainter {
   CircluarSplash({this.animationValue}) {
     _circlePaint = Paint()
       ..color = Color(0xffDEFEFF)
-      ..strokeWidth = 3.2
+      ..strokeWidth = 1.2
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
   }
@@ -66,9 +93,93 @@ class CircluarSplash extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
 
-class ArcSplash extends CustomPainter {
+class ArcSplash1 extends CustomPainter {
+  var _arcPaint;
+  ArcSplash1() {
+    _arcPaint = Paint()
+      ..color = Color(0xfff887ff)
+      ..strokeWidth = 1.2
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+  }
   @override
-  void paint(Canvas canvas, Size size) {}
+  void paint(Canvas canvas, Size size) {
+    canvas.drawArc(
+        Rect.fromCircle(
+          center: Offset(0, 0),
+          radius: 50,
+        ),
+        -math.pi / 2,
+        math.pi * 2,
+        false,
+        _arcPaint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
+}
+
+class ArcSplash2 extends CustomPainter {
+  var _arcPaint;
+  ArcSplash2() {
+    _arcPaint = Paint()
+      ..color = Color(0xffde004e)
+      ..strokeWidth = 1.2
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+  }
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawArc(
+        Rect.fromCircle(
+          center: Offset(0, 0),
+          radius: 60,
+        ),
+        -math.pi / 2,
+        math.pi * 2,
+        false,
+        _arcPaint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
+}
+
+class RectangleSplash extends CustomPainter {
+  var _rectanglePaint;
+  RectangleSplash() {
+    _rectanglePaint = Paint()
+      ..color = Color(0xff0891AB)
+      ..strokeWidth = 1.2
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+  }
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(0, 0), height: 150, width: 310),
+        _rectanglePaint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
+}
+
+class OuterRectangleSplash extends CustomPainter {
+  var _rectanglePaint;
+  OuterRectangleSplash() {
+    _rectanglePaint = Paint()
+      ..color = Color(0xff0891AB)
+      ..strokeWidth = 1.2
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+  }
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(0, 0), height: 190, width: 410),
+        _rectanglePaint);
+  }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
