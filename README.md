@@ -1,16 +1,21 @@
-# retroplayer
+# RetroPlayer
 
-A new Flutter project.
+An audio player Flutter project participating in #Hack20 flutter hackathon.
+
+## Project description 
+## Project features 
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Basic Tasks : 
+- [ ] Build up the idea ( max 2 hours) 
+- [ ] Build up a mock UI sequence *scratch* for mobile and web. (max 1 hour) 
+- [ ] Initiate project locally & Git.
+- [ ] Build up the app .
+- [ ] Test it on 3 android devices , web version & IOS version. 
+- [ ] Test it with codemagic.
+- [ ] Make a simple 1 min video (Integration between real video & walkthroughs) 
+- [ ] Make packages of widgets (Retro-Futuristic widgets)
+- [ ] Add API documentation + readme.
+- [ ] Upload the packages on pub.dev
+- [ ] Submit the application.
