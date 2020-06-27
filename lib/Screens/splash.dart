@@ -13,6 +13,7 @@ class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   FlutterTts _flutterTts = FlutterTts();
 
+  bool bolSpeaking = false;
   AnimationController _circlecontroller,
       _arc1Controller,
       _arc2Controller,
@@ -29,7 +30,9 @@ class _SplashScreenState extends State<SplashScreen>
       _outerRectangleFraction = 0.0;
 
   _initializeTTS() async {
-    await _flutterTts.setLanguage("en-US");
+    _flutterTts
+      ..setPitch(0.5)
+      ..speak('Hello agent 99');
   }
 
   @override
@@ -79,13 +82,16 @@ class _SplashScreenState extends State<SplashScreen>
           });
 
     _circlecontroller.forward();
+    Future.delayed(Duration(seconds: 4), () {
+      _initializeTTS();
+    });
 
-    _initializeTTS();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    math.Random rand = math.Random(); 
     return Scaffold(
       body: Stack(
         children: [
@@ -117,22 +123,7 @@ class _SplashScreenState extends State<SplashScreen>
             ),
           ),
           Text('Play'),
-          for (int i = 0; i < 5; i++)
-            Positioned(
-              top: i * 100.0,
-              left: i * 100.0,
-              child: GradientText(
-                'O ',
-                gradient: LinearGradient(
-                  colors: [Colors.deepPurple, Colors.deepOrange, Colors.pink],
-                ),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 60,
-                  fontFamily: 'elixia',
-                ),
-              ),
-            ),
+           
         ],
       ),
     );
