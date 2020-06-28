@@ -8,6 +8,8 @@ You ride a large *Retro-Panzer* and help Tobor to shoot all the evil letters.
 
 The game is still under development for the hackathon . It'll be built for Android , IOS & probably web. 
 
+The project isn't yet fully completed , some main features of the game are missing due to no time.
+
 ## Project features 
 
 This section will contain explanation of every feauture in the app , a medium article will be written soon after the hackathon ends.
