@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +14,10 @@ class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   FlutterTts _flutterTts = FlutterTts();
   static AudioCache player = AudioCache();
+  GlobalKey textKey = GlobalKey();
+
   double _top;
+  bool _playVisibility = true;
   Offset _tapDetails = Offset(0, 0);
   AnimationController _circlecontroller,
       _arc1Controller,
@@ -114,6 +114,7 @@ class _SplashScreenState extends State<SplashScreen>
       onTapDown: (d) {
         setState(() {
           _tapDetails = d.globalPosition;
+          print(_tapDetails);
         });
       },
       child: Scaffold(
@@ -127,7 +128,9 @@ class _SplashScreenState extends State<SplashScreen>
                 child: CustomPaint(
                   painter: OuterRectangleSplash(
                       outerRectangleAnimation: _outerRectangleFraction,
-                      gesturePosition: _tapDetails),
+                      gesturePosition: _tapDetails,
+                      width: MediaQuery.of(context).size.width,
+                      top: _top),
                   child: RotationTransition(
                     turns: _circleanimation,
                     child: CustomPaint(
@@ -157,21 +160,50 @@ class _SplashScreenState extends State<SplashScreen>
                 onPressed: () async {
                   var filePath = "audio/buttonPress.mp3";
                   await player.play(filePath);
+                  setState(() {
+                    _top += 100;
+                    _playVisibility = false;
+                  });
                 },
                 hoverColor: Colors.green,
-                child: ZoomIn(
-                  delay: Duration(seconds: 5),
-                  child: GradientText(
-                    'Play!',
-                    gradient: LinearGradient(colors: [
-                      Colors.deepPurple,
-                      Colors.deepOrange,
-                      Colors.pink
-                    ]),
-                    style: TextStyle(fontSize: 60, fontFamily: 'blanka'),
+                child: Visibility(
+                  visible: _playVisibility,
+                  maintainState: false,
+                  maintainSize: false,
+                  replacement: SizedBox.shrink(),
+                  maintainInteractivity: false,
+                  child: ZoomIn(
+                    from: 2,
+                    delay: Duration(seconds: 5),
+                    child: GradientText(
+                      'Play!',
+                      gradient: LinearGradient(colors: [
+                        Colors.deepPurple,
+                        Colors.deepOrange,
+                        Colors.pink
+                      ]),
+                      style: TextStyle(fontSize: 60, fontFamily: 'blanka'),
+                    ),
                   ),
                 ),
               ),
+            ),
+            AnimatedPositioned(
+              top: _top,
+              left: 100,
+              key: textKey,
+              child: Text(
+                !contains(
+                        Offset(100, _top),
+                        _tapDetails.dx - (MediaQuery.of(context).size.width / 2),
+                        MediaQuery.of(context).size.width / 2,
+                        _tapDetails.dy - _top,
+                        MediaQuery.of(context).size.height / 2)
+                    ? 'A'
+                    : 'U',
+                style: TextStyle(fontSize: 50, color: Colors.red),
+              ),
+              duration: Duration(seconds: 3),
             )
           ],
         ),
@@ -179,10 +211,11 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
-  Future<File> writeToFile(ByteData data, String path) {
-    final buffer = data.buffer;
-    return File(path).writeAsBytes(
-        buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
+  bool contains(Offset offset, left, right, top, bottom) {
+    return offset.dx >= left &&
+        offset.dx < right &&
+        offset.dy >= top &&
+        offset.dy < bottom;
   }
 }
 
@@ -273,9 +306,14 @@ class ArcSplash2 extends CustomPainter {
 class OuterRectangleSplash extends CustomPainter {
   var _rectanglePaint;
   final outerRectangleAnimation;
-  final gesturePosition;
-  OuterRectangleSplash({this.outerRectangleAnimation, this.gesturePosition}) {
-    print(gesturePosition);
+  final Offset gesturePosition;
+  final top;
+  final width;
+  OuterRectangleSplash(
+      {this.outerRectangleAnimation,
+      this.gesturePosition,
+      this.top,
+      this.width}) {
     _rectanglePaint = Paint()
       ..color = Color(0xff0891AB)
       ..strokeWidth = 1.2
@@ -284,12 +322,13 @@ class OuterRectangleSplash extends CustomPainter {
   }
   @override
   void paint(Canvas canvas, Size size) {
+    print(Offset(gesturePosition.dx - (width / 2), gesturePosition.dy - top));
     canvas.drawLine(
         Offset(0, 0),
-        Offset(gesturePosition.dx - 150, gesturePosition.dy - 150),
+        Offset(gesturePosition.dx - (width / 2), gesturePosition.dy - top),
         _rectanglePaint);
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
