@@ -24,13 +24,13 @@ An audio player Flutter project participating in #Hack20 flutter hackathon.
 
 This is a documented walkthrough of working on the application of #Hack20 hour by hour (Egypt/Ismailia) (Or at least I'm trying to do hour by hour ^^).
 
-**27 June 5:46pm ** 
+**27 June 5:46pm** 
 
 ![Screenshot from 2020-06-27 17-46-25](https://user-images.githubusercontent.com/50237142/85934609-5d444c00-b8e5-11ea-8fc4-842695f8721d.png)
 - Making progress in *RetroPlayer app* ( adding animated Custom Painters).
 - Also viewing some dribbble retro animations .
 
-**27 June 11:50 pm **
+**27 June 11:50 pm**
 
 ![Screenshot from 2020-06-27 23-50-51](https://user-images.githubusercontent.com/50237142/85934592-08083a80-b8e5-11ea-940a-172c00ecae99.png)
 
