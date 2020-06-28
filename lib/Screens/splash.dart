@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'dart:math' as math;
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:gradient_text/gradient_text.dart';
@@ -16,6 +15,7 @@ class _SplashScreenState extends State<SplashScreen>
   FlutterTts _flutterTts = FlutterTts();
   static AudioCache player = AudioCache();
   GlobalKey textKey = GlobalKey();
+  var _scaffoldKey = GlobalKey<ScaffoldState>();
 
   double _top;
   bool _playVisibility = true;
@@ -38,7 +38,9 @@ class _SplashScreenState extends State<SplashScreen>
   _initializeTTS() async {
     _flutterTts
       ..setPitch(0.5)
-      ..speak('Hello agent 99');
+      ..setSpeechRate(0.7)
+      ..speak(
+          "Hello agent , my name is Tobor. I'm your AI friend. Luckily I have you on my side. The Retro-cyber-Letters are invading our place! You should use the Retro-Panzer & shoot all the evil letters.");
   }
 
   @override
@@ -95,12 +97,28 @@ class _SplashScreenState extends State<SplashScreen>
     });
 
     player.load('audio/buttonPress.mp3');
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            backgroundColor: Color(0xff080B26),
+            duration: Duration(seconds: 18),
+            elevation: 2.3,
+            content: Text(
+              "Hello agent , my name is Tobor. I'm your AI friend. Luckily I have you on my side. The Retro-cyber-Letters are invading our place! You should use the Retro-Panzer & shoot all the evil letters.",
+              style: TextStyle(fontSize: 20, fontFamily: 'elixia'),
+            ),
+          ),
+        );
+      },
+    );
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
     _top = MediaQuery.of(context).size.height / 2;
+
     super.didChangeDependencies();
   }
 
@@ -119,6 +137,7 @@ class _SplashScreenState extends State<SplashScreen>
         });
       },
       child: Scaffold(
+        key: _scaffoldKey,
         body: Stack(
           children: [
             AnimatedPositioned(
@@ -215,7 +234,7 @@ class _SplashScreenState extends State<SplashScreen>
     var xDistance = x2 - x1;
     var yDistance = y2 - y1;
     print(math.sqrt(math.pow(xDistance, 2) + math.pow(yDistance, 2)));
-    return  math.pow(xDistance, 2) + math.pow(yDistance, 2) < 20;
+    return math.pow(xDistance, 2) + math.pow(yDistance, 2) < 20;
   }
 
   Rect intersect(Rect other) {

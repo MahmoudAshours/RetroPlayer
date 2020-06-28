@@ -18,7 +18,19 @@ dependencies:
   flutter_sound: ^4.0.4+1
   path_provider: ^1.6.11
   audioplayers: ^0.13.2
+  flutter_launcher_icons: ^0.7.5
+  flutter_native_splash: ^0.1.9
+
+flutter_native_splash:
+  image: assets/images/RPlogo.png
+  color: "ffffff"
+  fill: true
   cupertino_icons: ^0.1.3
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/RPlogo.png"
 
 dev_dependencies:
   flutter_test:
