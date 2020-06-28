@@ -38,3 +38,15 @@ This is a documented walkthrough of working on the application of #Hack20 hour b
 
 **28 June 02:12 am (35:47:49 hours till the hackathon is finished)** 
 
+- Making progress in RetroPlayer app. (added starting animation).
+
+**28 June 04:25 am (33:35:25 hours till the hackathon is finished)** 
+
+- Taking some notes about Offsets and x-axis,y-axis prespectives.
+- Found really cool web app to solve the equation of striagit line [here](http://www.webmath.com/equline1.html).
+- Adding some features to the app such as languages & other stuff. 
+- Also , I guess I'll be taking a break.
+
+![WhatsApp Image 2020-06-28 at 4 23 37 AM](https://user-images.githubusercontent.com/50237142/85936088-75bd6200-b8f7-11ea-9ac8-dc7aeb032e81.jpeg)
+![WhatsApp Image 2020-06-28 at 4 23 37 AM (1)](https://user-images.githubusercontent.com/50237142/85936089-7655f880-b8f7-11ea-83ca-6da94d1938c6.jpeg)
+
