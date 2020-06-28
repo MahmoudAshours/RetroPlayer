@@ -62,3 +62,9 @@ This is a documented walkthrough of working on the application of #Hack20 hour b
 ![WhatsApp Image 2020-06-28 at 4 23 37 AM](https://user-images.githubusercontent.com/50237142/85936088-75bd6200-b8f7-11ea-9ac8-dc7aeb032e81.jpeg)
 ![WhatsApp Image 2020-06-28 at 4 23 37 AM (1)](https://user-images.githubusercontent.com/50237142/85936089-7655f880-b8f7-11ea-83ca-6da94d1938c6.jpeg)
 
+**28 June 12:04 pm (25:55:30 hours till the end of the hackathon)**
+
+- Returned to work on RetroPlayer .
+- Found cool package called [*Gradient Text*](https://pub.dev/packages/gradient_text).
+
+![Screenshot from 2020-06-28 12-04-03](https://user-images.githubusercontent.com/50237142/85944538-c2289200-b937-11ea-8716-7900a3656718.png)
