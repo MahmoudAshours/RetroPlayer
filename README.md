@@ -79,3 +79,7 @@ This is a documented walkthrough of working on the application of #Hack20 hour b
 - Found cool package called [*Gradient Text*](https://pub.dev/packages/gradient_text).
 
 ![Screenshot from 2020-06-28 12-04-03](https://user-images.githubusercontent.com/50237142/85944538-c2289200-b937-11ea-8716-7900a3656718.png)
+
+# Conclusion 
+I really had fun participating in #Hack20 , it was cool experience which allowed me to build a new idea. (Unfortunately I didn't complete the whole project due to issues). 
+But it was cool experience building mockups , also searching & building up great and different ideas in a short period of time! 
