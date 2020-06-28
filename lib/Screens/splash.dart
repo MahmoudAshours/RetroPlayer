@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'dart:math' as math;
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:gradient_text/gradient_text.dart';
@@ -191,16 +192,15 @@ class _SplashScreenState extends State<SplashScreen>
             AnimatedPositioned(
               top: _top,
               left: 100,
-              key: textKey,
               child: Text(
                 !contains(
-                        Offset(100, _top),
-                        _tapDetails.dx - (MediaQuery.of(context).size.width / 2),
-                        MediaQuery.of(context).size.width / 2,
+                        _tapDetails.dx - MediaQuery.of(context).size.width / 2,
+                        100,
                         _tapDetails.dy - _top,
-                        MediaQuery.of(context).size.height / 2)
+                        _top)
                     ? 'A'
                     : 'U',
+                key: textKey,
                 style: TextStyle(fontSize: 50, color: Colors.red),
               ),
               duration: Duration(seconds: 3),
@@ -211,11 +211,19 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
-  bool contains(Offset offset, left, right, top, bottom) {
-    return offset.dx >= left &&
-        offset.dx < right &&
-        offset.dy >= top &&
-        offset.dy < bottom;
+  bool contains(x1, x2, y1, y2) {
+    var xDistance = x2 - x1;
+    var yDistance = y2 - y1;
+    print(math.sqrt(math.pow(xDistance, 2) + math.pow(yDistance, 2)));
+    return  math.pow(xDistance, 2) + math.pow(yDistance, 2) < 20;
+  }
+
+  Rect intersect(Rect other) {
+    return Rect.fromLTRB(
+        math.max(100, other.left),
+        math.max(_top, other.top),
+        math.min(MediaQuery.of(context).size.width / 2, other.right),
+        math.min(MediaQuery.of(context).size.width / 2, other.bottom));
   }
 }
 
