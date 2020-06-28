@@ -2,8 +2,10 @@
 
 A Flutter game project participating in [#Hack20](https://flutterhackathon.com/#/) flutter hackathon.
 
+Youtube demo link [here](https://youtu.be/zgTaa--_svc)
+
 ## Project description 
-*RetroPlayer* is a cool retr0-futuristic 2-D game , where you enter the world of futuristic ideas , Where *Tobor* your AI friend guides you to help him to defeat the evil *Retro-cyber-Letters* (A,B,C,D,etc..).
+*RetroPlayer* is a cool retro-futuristic 2-D game , where you enter the world of futuristic ideas , Where *Tobor* your AI friend guides you to help him to defeat the evil *Retro-cyber-Letters* (A,B,C,D,etc..).
 You ride a large *Retro-Panzer* and help Tobor to shoot all the evil letters.
 
 The game is still under development for the hackathon . It'll be built for Android , IOS & probably web. 
@@ -12,7 +14,12 @@ The project isn't yet fully completed , some main features of the game are missi
 
 ## Project features 
 
-This section will contain explanation of every feauture in the app , a medium article will be written soon after the hackathon ends.
+This section will contain a breif explanation of every feauture in the app , a medium article will be written soon after the hackathon ends.
+
+- The Retro-Cyber-letters are attacking Tobor , if they reached the central circle , Tobor will die. With his death the ideal futiristic world is ruined and controlled by the evil letters.
+
+- You ride the Retro-Panzer and point your laser-gun onto each letter , by pointing on the letters they'll die.
+
 
 ## Getting Started
 
@@ -25,12 +32,14 @@ This section will contain explanation of every feauture in the app , a medium ar
 - [x] Test it with codemagic.
 - [x] Make a simple 1 min video (Integration between real video & walkthroughs) 
 - [x] Make packages of widgets (Retro-Futuristic widgets)
+
+## Future tasks :
 - [ ] Add API documentation + readme.
 - [ ] Upload the packages on pub.dev
 - [ ] Submit the application.
 
 ## Upcoming features 
-This section is for upcoming features //TODO
+- Not all letters have the same power , each letter has the *Ascilion power* Where the King **Z** is the letter which controls other letters to attack Tobor.
 
 This section maybe long , it'll be my own walkthrough the hackathon days!
 
