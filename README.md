@@ -5,6 +5,7 @@ A Flutter game project participating in [#Hack20](https://flutterhackathon.com/#
 Youtube demo link [here](https://youtu.be/zgTaa--_svc)
 
 ## Project description 
+
 *RetroPlayer* is a cool retro-futuristic 2-D game , where you enter the world of futuristic ideas , Where *Tobor* your AI friend guides you to help him to defeat the evil *Retro-cyber-Letters* (A,B,C,D,etc..).
 You ride a large *Retro-Panzer* and help Tobor to shoot all the evil letters.
 
@@ -31,7 +32,7 @@ This section will contain a breif explanation of every feauture in the app , a m
 - [x] Test it on 3 android devices , web version & IOS version. 
 - [x] Test it with codemagic.
 - [x] Make a simple 1 min video (Integration between real video & walkthroughs) 
-- [x] Make packages of widgets (Retro-Futuristic widgets)
+- [] Make packages of widgets (Retro-Futuristic widgets) - not finished yet //TODO
 
 ## Future tasks :
 - [ ] Add API documentation + readme.
@@ -39,7 +40,13 @@ This section will contain a breif explanation of every feauture in the app , a m
 - [ ] Submit the application.
 
 ## Upcoming features 
-- Not all letters have the same power , each letter has the *Ascilion power* Where the King **Z** is the letter which controls other letters to attack Tobor.
+I plan to complete working on this project , but after learning **FLame** Which is a game engine for flutter . 
+
+- [ ] Not all letters have the same power , each letter has the *Ascilion power* Where the King **Z** is the letter which controls other letters to attack Tobor.
+- [ ] Letters have Life points according to their size , where the letter Q is geometrically drew larger than Y for example.
+- [ ] Adding different languages not only english. 
+- [ ] Including all different Retro-Futuristic fonts (Elixia , Blanka , etc..)
+
 
 This section maybe long , it'll be my own walkthrough the hackathon days!
 
@@ -79,6 +86,10 @@ This is a documented walkthrough of working on the application of #Hack20 hour b
 - Found cool package called [*Gradient Text*](https://pub.dev/packages/gradient_text).
 
 ![Screenshot from 2020-06-28 12-04-03](https://user-images.githubusercontent.com/50237142/85944538-c2289200-b937-11ea-8716-7900a3656718.png)
+
+## Project screenshots 
+![WhatsApp Image 2020-06-28 at 10 48 01 PM (1)](https://user-images.githubusercontent.com/50237142/85958191-e9ad4800-b993-11ea-81df-b303bae24954.jpeg)
+![WhatsApp Image 2020-06-28 at 10 48 01 PM](https://user-images.githubusercontent.com/50237142/85958193-ea45de80-b993-11ea-9a74-9ac6cd6467f6.jpeg)
 
 # Conclusion 
 I really had fun participating in #Hack20 , it was cool experience which allowed me to build a new idea. (Unfortunately I didn't complete the whole project due to issues). 
