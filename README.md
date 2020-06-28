@@ -1,6 +1,6 @@
 # RetroPlayer
 
-An audio player Flutter project participating in [#Hack20](https://flutterhackathon.com/#/) flutter hackathon.
+A Flutter game project participating in [#Hack20](https://flutterhackathon.com/#/) flutter hackathon.
 
 ## Project description 
 *RetroPlayer* is a cool retr0-futuristic 2-D game , where you enter the world of futuristic ideas , Where *Tobor* your AI friend guides you to help him to defeat the evil *Retro-cyber-Letters* (A,B,C,D,etc..).
